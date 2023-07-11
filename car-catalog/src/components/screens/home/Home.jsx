@@ -1,28 +1,18 @@
 import styles from './Home.module.css'
-import {cars} from './cars.data.js'
+import CarItem from './car-item/Caritem'
+import CreateCarForm from './create-car-form/CreateCarForm'
+import {cars as carsData} from './cars.data.js'
+import { useState } from 'react'
 
 function Home() {
+    const [cars, setCars] = useState(carsData)
     return (
       <div>
         <h1>Cars catalog</h1>
+        <CreateCarForm setCars={setCars}/>
         <div>
             {cars.length ? cars.map(car => (
-                <div key={car.id} className={styles.item}>
-                    <div 
-                    className={styles.image}
-                    style={{
-                        backgroundImage: `url(${car.image})`,
-                    }}/>
-                    <div className={styles.info}>
-                        <h2>{car.name}</h2>
-                        <p>{new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                        }).format(car.price)}
-                        </p>
-                        <button>Read more</button>
-                    </div>
-                </div>
+                <CarItem key={car.id} car={car}/>
             ))
             :  <p>There are no cars</p>
         }
