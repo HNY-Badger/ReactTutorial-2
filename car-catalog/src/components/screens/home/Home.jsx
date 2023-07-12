@@ -6,9 +6,10 @@ import VideoPlayer from './Player.jsx'
 import axios from 'axios'
 
 import {cars as carsData} from './cars.data.js'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { CarService } from '../../../services/car.service'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../../providers/AuthProvider'
 
 function Home() {
     const [cars, setCars] = useState(carsData)
@@ -23,9 +24,17 @@ function Home() {
 
     }, [])
 
+    const {user, setUser} = useContext(AuthContext)
+
     return (
       <div>
         <h1>Cars catalog</h1>
+
+        {user ? (<>
+        <h2>Welcome, {user.name}!</h2>
+        <button onClick={() => setUser(null)}>Logout</button>
+        </>) : 
+        <button onClick={() => setUser({name: "Max"})}>Login</button>}
 
         <CreateCarForm setCars={setCars}/>
         <div>
