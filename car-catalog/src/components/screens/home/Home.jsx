@@ -6,13 +6,17 @@ import VideoPlayer from './Player.jsx'
 import axios from 'axios'
 
 import {cars as carsData} from './cars.data.js'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { CarService } from '../../../services/car.service'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
     const [cars, setCars] = useState(carsData)
 
+    const clearCars = useCallback(() => () => {
+      setCars([])
+    }, [])
+    
     useEffect(() => {
       const fetchData = async () => {
         const data = await CarService.getAll()
@@ -20,14 +24,13 @@ function Home() {
         setCars(data)
       }
       fetchData()
-    }, [])
 
+      return clearCars
+    }, [])
 
     return (
       <div>
         <h1>Cars catalog</h1>
-
-        <VideoPlayer src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'/>
 
         <CreateCarForm setCars={setCars}/>
         <div>
