@@ -1,32 +1,23 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styles from './CreateCarForm.module.css'
-import { CarService } from '../../../../services/car.service'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import ErrorMessage from './ErrorMessage'
+import { useCreateCar } from './useCreateCar'
 
 const CreateCarForm = () => {
     const {register, reset, handleSubmit, formState: {errors}} = useForm({
         mode: 'onChange'
     })
 
-    const queryClient = useQueryClient()
-
-    const {mutate} = useMutation(['create car'], (data) => CarService.create(data), 
-    {onSuccess : () => {
-        queryClient.invalidateQueries('cars')
-        reset()
-    }})
-
-    const createCar = data => {
-        mutate(data)
-    }
+    const {createCar} = useCreateCar(reset)
 
     return <form className={styles.form} onSubmit={handleSubmit(createCar)}>
         <input 
             {...register('name', { required: 'Name is required' })}
             placeholder="Name" 
         />
-        {errors?.name?.message && <p style={{color: 'red'}}>Name is required</p>}
+        
+        <ErrorMessage error={errors?.name?.message}/>
+
         <input 
             {...register('price', { required: true })}
             placeholder="Price"
