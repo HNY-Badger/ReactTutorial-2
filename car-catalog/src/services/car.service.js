@@ -13,5 +13,9 @@ export const CarService = {
         .then(response => response.json())
         .then(_data => {data = _data})
         return data
+    },
+
+    async create(data){
+        return axios.post('http://localhost:9000/addcar', data)
     }
 }
