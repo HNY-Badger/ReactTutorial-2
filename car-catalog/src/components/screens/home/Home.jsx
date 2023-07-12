@@ -1,11 +1,27 @@
 import styles from './Home.module.css'
 import CarItem from './car-item/Caritem'
 import CreateCarForm from './create-car-form/CreateCarForm'
+
+import axios from 'axios'
+
 import {cars as carsData} from './cars.data.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { CarService } from '../../../services/car.service'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
     const [cars, setCars] = useState(carsData)
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const data = await CarService.getAll()
+  
+        setCars(data)
+      }
+      fetchData()
+    }, [])
+
+
     return (
       <div>
         <h1>Cars catalog</h1>
