@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../providers/AuthProvider'
 import { useQuery } from '@tanstack/react-query'
 import Header from '../../ui/Header'
-import { useAuth } from '../../../hooks/useAuth'
 import Catalog from '../../ui/Catalog'
 
 function Home() {

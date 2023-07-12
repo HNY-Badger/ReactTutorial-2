@@ -1,7 +1,7 @@
-import { Component, useContext } from "react";
+import { Component, ComponentType, useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
-export const withAuth = (Component) => (props) => {
+export const withAuth = (Component: ComponentType) => (props:any) => {
     const {user} = useContext(AuthContext)
 
     if (!user) return <p>You are not authorized</p>

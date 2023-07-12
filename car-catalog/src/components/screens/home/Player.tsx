@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 
 const VideoPlayer = ({src, ...props}) => {
-    const ref = useRef()
+    const ref = useRef<HTMLVideoElement>(null)
     const handlePlay = () => {
-        ref.current.play()
+        ref?.current?.play()
     }
     const handlePause = () => {
-        ref.current.pause()
+        ref?.current?.pause()
     }
 
     return (

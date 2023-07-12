@@ -1,6 +1,12 @@
 import CarItem from "../screens/home/car-item/Caritem"
+import { ICar } from "../../types/car.interface"
+import { FC } from "react"
 
-const Catalog = ({data}) => {
+interface ICatalog {
+    data?: ICar[],
+}
+
+const Catalog: FC<ICatalog> = ({data = []}) => {
     return (
         <div>
             {data.length ? data.map(car => (
