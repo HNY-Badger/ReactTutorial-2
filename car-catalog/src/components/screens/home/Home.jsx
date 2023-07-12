@@ -12,10 +12,6 @@ import { useNavigate } from 'react-router-dom'
 
 function Home() {
     const [cars, setCars] = useState(carsData)
-
-    const clearCars = useCallback(() => () => {
-      setCars([])
-    }, [])
     
     useEffect(() => {
       const fetchData = async () => {
@@ -25,7 +21,6 @@ function Home() {
       }
       fetchData()
 
-      return clearCars
     }, [])
 
     return (
