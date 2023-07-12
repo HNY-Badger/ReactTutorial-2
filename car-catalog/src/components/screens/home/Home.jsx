@@ -1,6 +1,7 @@
 import styles from './Home.module.css'
 import CarItem from './car-item/Caritem'
 import CreateCarForm from './create-car-form/CreateCarForm'
+import VideoPlayer from './Player.jsx'
 
 import axios from 'axios'
 
@@ -25,6 +26,9 @@ function Home() {
     return (
       <div>
         <h1>Cars catalog</h1>
+
+        <VideoPlayer src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'/>
+
         <CreateCarForm setCars={setCars}/>
         <div>
             {cars.length ? cars.map(car => (
